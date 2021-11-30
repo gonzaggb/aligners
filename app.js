@@ -1,4 +1,3 @@
-const {User, Patient} = require('./src/database/models');
 
 var createError = require('http-errors');
 var express = require('express');
@@ -6,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const apiRouter = require('./src/routes/api');
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
 
@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
+app.use('/api/', apiRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

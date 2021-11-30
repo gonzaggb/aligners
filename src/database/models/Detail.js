@@ -7,7 +7,12 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true
         },
         type: {
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING(5),
+            description: DataTypes.STRING(100),
+            allowNull: false
+        },
+        description: {
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         option: {

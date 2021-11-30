@@ -13,7 +13,7 @@ last_name VARCHAR(255) NOT NULL,
 professional_id INT NOT NULL UNIQUE,
 email VARCHAR(255) NOT NULL UNIQUE,
 mobilephone VARCHAR(10),
-adress VARCHAR(255),
+address VARCHAR(255),
 rol ENUM('admin','professional'),
 PASSWORD VARCHAR(255)
 );
