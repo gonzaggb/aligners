@@ -95,8 +95,11 @@ FOREIGN KEY (id_treatment_fk) REFERENCES treatments(id_treatment_pk)
 CREATE TABLE details
 (
 id_detail_pk INT PRIMARY KEY AUTO_INCREMENT,
-TYPE VARCHAR(255) NOT NULL,
-OPTION VARCHAR(255) NOT NULL
+TYPE VARCHAR(5) NOT NULL,
+tab VARCHAR(50),
+section VARCHAR(50),
+checkbox VARCHAR(50),
+input VARCHAR(50)
 );
 
 CREATE TABLE treatments_details

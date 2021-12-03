@@ -8,17 +8,24 @@ module.exports = (sequelize, DataTypes) => {
         },
         type: {
             type: DataTypes.STRING(5),
-            description: DataTypes.STRING(100),
             allowNull: false
         },
-        description: {
-            type: DataTypes.STRING(100),
+        tab: {
+            type: DataTypes.STRING(50),
             allowNull: false
         },
-        option: {
-            type: DataTypes.STRING(255),
+        section: {
+            type: DataTypes.STRING(50),
             allowNull: false
-        }
+        },
+        checkbox: {
+            type: DataTypes.STRING(50),
+            allowNull: false
+        },
+        input: {
+            type: DataTypes.STRING(50),
+            allowNull: false
+        },
     }
     config = {
         tableName: 'details',
@@ -33,8 +40,10 @@ module.exports = (sequelize, DataTypes) => {
             as: 'treatments',
             through: 'treatments_details',
             foreignKey: 'idDetailFk',
-            otherKey: 'idTreatmentFk'
+            otherKey: 'idTreatmentFk',
+            timestamps: false
         })
+
     }
 
     return Detail

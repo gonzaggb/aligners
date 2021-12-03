@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         idTypeOfTreatmentFk: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         idPatientFk: {
             type: DataTypes.INTEGER,
@@ -44,14 +44,14 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'idTypeOfTreatmentFk',
             timestamps: false
         })
-        Treatment.associate = function (models) {
-            Treatment.hasMany(models.Detail, {
-                as: 'details',
-                through: 'treatment_details',
-                foreignKey: 'idTreatmentFk',
-                otherKey: 'idDetailFk'
-            })
-        }
+        Treatment.belongsToMany(models.Detail, {
+            as: 'details',
+            through: 'treatments_details',
+            foreignKey: 'idTreatmentFk',
+            otherKey: 'idDetailFk',
+            timestamps: false
+        })
+
         Treatment.associate = function (models) {
             Treatment.hasMany(models.Image, {
                 as: 'images',
