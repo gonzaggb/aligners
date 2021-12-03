@@ -18,14 +18,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(50),
             allowNull: false
         },
-        checkbox: {
+        option: {
             type: DataTypes.STRING(50),
             allowNull: false
-        },
-        input: {
-            type: DataTypes.STRING(50),
-            allowNull: false
-        },
+        }
     }
     config = {
         tableName: 'details',
@@ -43,7 +39,11 @@ module.exports = (sequelize, DataTypes) => {
             otherKey: 'idTreatmentFk',
             timestamps: false
         })
-
+        Detail.hasMany(models.DetailValue, {
+            as: 'detailValues',
+            foreignKey: 'idDetailFk',
+            timestamps: false
+        })
     }
 
     return Detail

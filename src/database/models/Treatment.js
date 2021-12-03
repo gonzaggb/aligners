@@ -51,14 +51,11 @@ module.exports = (sequelize, DataTypes) => {
             otherKey: 'idDetailFk',
             timestamps: false
         })
-
-        Treatment.associate = function (models) {
-            Treatment.hasMany(models.Image, {
-                as: 'images',
-                foreignKey: 'idTreatmentFk',
-                timestamps: false
-            })
-        }
+        Treatment.hasMany(models.Image, {
+            as: 'images',
+            foreignKey: 'idTreatmentFk',
+            timestamps: false
+        })
     }
     return Treatment;
 }

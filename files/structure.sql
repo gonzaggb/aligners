@@ -96,10 +96,19 @@ CREATE TABLE details
 (
 id_detail_pk INT PRIMARY KEY AUTO_INCREMENT,
 TYPE VARCHAR(5) NOT NULL,
-tab VARCHAR(50),
-section VARCHAR(50),
-checkbox VARCHAR(50),
-input VARCHAR(50)
+tab VARCHAR(70),
+section VARCHAR(70),
+OPTION VARCHAR(70)
+);
+
+##CREATE TABLE DETAILS_VALUES
+CREATE TABLE details_values
+(
+id_detail_value_pk INT PRIMARY KEY AUTO_INCREMENT,
+TYPE VARCHAR (5) NOT NULL,
+input VARCHAR(50),
+id_detail_fk INT,
+FOREIGN KEY (id_detail_fk) REFERENCES details(id_detail_pk)
 );
 
 CREATE TABLE treatments_details
