@@ -56,6 +56,11 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'idTreatmentFk',
             timestamps: false
         })
+        Treatment.hasMany(models.TreatmentDetail, {
+            as: 'treatmentDetails',
+            foreignKey: 'idTreatmentFk',
+            timestamps: false
+        })
     }
     return Treatment;
 }

@@ -108,6 +108,7 @@ id_detail_value_pk INT PRIMARY KEY AUTO_INCREMENT,
 TYPE VARCHAR (5) NOT NULL,
 input VARCHAR(50),
 id_detail_fk INT,
+VALUE VARCHAR(255),
 FOREIGN KEY (id_detail_fk) REFERENCES details(id_detail_pk)
 );
 

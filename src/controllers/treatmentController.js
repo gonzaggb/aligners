@@ -1,4 +1,4 @@
-const { Detail, Treatment, } = require('../database/models');
+const { Detail, Treatment, TreatmentDetail } = require('../database/models');
 const { validationResult } = require('express-validator');
 const { addDetails } = require('../treatmentUtils/addDetails');
 const controller = {
@@ -30,7 +30,7 @@ const controller = {
     createTreatment: async (req, res) => {
         console.log('accede al create treatment')
         const errors = validationResult(req);
-        if (errors) {
+        if (errors.array().length > 0)  {
             res.status(422).json({
                 meta: {
                     status: 422,
@@ -40,17 +40,19 @@ const controller = {
             })
         } else {
             //idPatient // debe salir de la sesion
-            const { idPatient, atccOption, rmOption, rmValue, rsOption, rsValue, lmmcOption,
-                lmmcValue, misupOptionE, misupOptionP, misupOptionDA, misupOptionDDP, misupOptionDIP,
-                miinfOptionE, miinfOptionP, miinfOptionDA, miinfOptionDDP, miinfOptionDIP, atOption, atValue } = req.body
+            const { idPatient, atOption, rsValue } = req.body
+            console.log(JSON.stringify(rsValue))
+
             try {
                 const treatment = await Treatment.create({
                     idPatientFk: Number(idPatient),
                     idTreatmentStatusFk: 1, // 1 = default
                 })
-                addDetails(atccOption, rmOption, rmValue, rsOption, rsValue, lmmcOption,
-                    lmmcValue, misupOptionE, misupOptionP, misupOptionDA, misupOptionDDP, misupOptionDIP,
-                    miinfOptionE, miinfOptionP, miinfOptionDA, miinfOptionDDP, miinfOptionDIP, atOption, atValue)
+                const treatmentDetail = await TreatmentDetail.create({
+                    idTreatmentFk: treatment.idTreatmentPk,
+                    idDetailFk: atOption,
+                    metadata: JSON.stringify(rsValue)
+                    })
                 res.status(200).json({
                     meta: {
                         status: 200,
