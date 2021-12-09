@@ -48,7 +48,11 @@ const validateApi = [
                 throw new Error('Debes seleccionar seleccionar una opcion para 101')
             }
             return true
-        })
+        }),
+/*     body('extFrente')
+        .custom((value, { req }) => {
+            console.log(req)
+        }) */
 ]
 
 module.exports = { validateApi }

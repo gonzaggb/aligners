@@ -29,8 +29,11 @@ const controller = {
     },
     createTreatment: async (req, res) => {
         console.log('accede al create treatment')
+        console.log(req.files)
+        console.log(req.body.id)
+
+        return res.json('mirar consola')
         const errors = validationResult(req);
-        console.log(errors)
         if (errors.array().length > 0) {
             res.status(422).json({
                 meta: {
