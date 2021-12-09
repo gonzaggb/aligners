@@ -7,6 +7,6 @@ const treatmentController = require('../controllers/treatmentController');
 //get all treatments details
 router.get('/treatmentDetail', treatmentController.getTreatmentDetails);
 //create treatment
-router.post('/createTreatment', /* validateApi, */ treatmentController.createTreatment);
+router.post('/createTreatment', validateApi, treatmentController.createTreatment);
 
 module.exports = router;
