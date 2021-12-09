@@ -1,4 +1,6 @@
-const { body } = require('express-validator')
+const { body, check } = require('express-validator')
+const path = require('path')
+const { isImage } = require('../utils/isImage')
 
 const validateApi = [
 
@@ -49,10 +51,25 @@ const validateApi = [
             }
             return true
         }),
-/*     body('extFrente')
+    body('extFrente')
         .custom((value, { req }) => {
-            console.log(req)
-        }) */
+            const { files } = req
+            console.log("#######VALIDATOR#######")
+            console.log(files)
+            files.forEach(file => {
+                if (file.fieldname === 'extFrente') {
+                    console.log(isImage(path.extname(file.originalname)))
+                    if (!isImage(path.extname(file.originalname))) {
+                        throw new Error('El archivo debe ser una imagen')
+                    }
+                    console.log('es una imagen')
+                    return true
+                }
+
+            })
+            console.log("#######VALIDATOR#######")
+
+        })
 ]
 
 module.exports = { validateApi }
