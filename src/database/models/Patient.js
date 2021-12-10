@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false
 		},
 		mobilephone: {
-			type: DataTypes.INTEGER(10),
+			type: DataTypes.INTEGER(15),
 			allowNull: true
 		},
 		province: {

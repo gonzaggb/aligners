@@ -5,7 +5,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
-app.use(cors());
 
 const treatmentRouter = require('./src/routes/treatmentsRoutes');
 var indexRouter = require('./src/routes/index');
@@ -13,6 +12,8 @@ var usersRouter = require('./src/routes/users');
 const patientRouter = require('./src/routes/patientsRoutes');
 
 var app = express();
+app.use(cors());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, './src/views'));
