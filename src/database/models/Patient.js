@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         id:{
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+			unique: true
         },
         birthday:{
             type: DataTypes.DATE,
@@ -33,7 +34,6 @@ module.exports = (sequelize, DataTypes) => {
         },
 		email: {
 			type: DataTypes.STRING(255),
-			unique: true,
 			allowNull: false
 		},
 		mobilephone: {
@@ -52,6 +52,10 @@ module.exports = (sequelize, DataTypes) => {
         occupation: {
 			type: DataTypes.STRING(50),
 			allowNull: true
+		},
+		idUserFk: {
+			type: DataTypes.INTEGER,
+			allowNull: false
 		}
 	}
 	const config = {

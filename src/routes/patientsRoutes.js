@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const { validateApi } = require('../middleware/treatmentsValidator');
+const { validateApi } = require('../middleware/patientValidator');
 const patientController = require('../controllers/patientController');
-const upload = require('../middleware/treatmentsMulter');
 
 
 
 //create treatment
-router.post('/create', patientController.createPatient);
+router.post('/create', validateApi, patientController.createPatient);
 
 module.exports = router;

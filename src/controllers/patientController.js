@@ -5,35 +5,51 @@ const controller = {
 
     // api to get details available for a treatment
     createPatient: async (req, res) => {
-        console.log("#######################")
-        const { name, lastName, birthday, genre, email, mobilephone, province, city, occupation,idType, id } = req.body
-        try {
-            const patient = await Patient.create({
-                name,
-                lastName,
-                idType,
-                id,
-                birthday,
-                genre,
-                email,
-                mobilephone,
-                province,
-                city,
-                occupation
-            })
-            res.status(200).json({
+        const errors = validationResult(req);
+        const { name, lastName, birthday, genre, email, mobilephone, province, city, occupation, idType, id, idUserFk } = req.body
+        if (errors.array().length > 0) {
+            return res.json({
                 meta: {
-                    status: 200,
-                    message: 'Patient created successfully'
+                    status: 1,
+                    message: 'Errors in form',
+                    errors: errors.array().length
                 },
-                data: patient
+                errors: errors.array()
             })
+        } else {
+            try {
+                const patient = await Patient.create({
+                    name,
+                    lastName,
+                    idType,
+                    id,
+                    birthday,
+                    genre,
+                    email,
+                    mobilephone,
+                    province,
+                    city,
+                    occupation,
+                    idUserFk
+                })
+                res.status(200).json({
+                    meta: {
+                        status: 200,
+                        message: 'Patient created successfully'
+                    },
+                    data: patient
+                })
 
 
-        } catch (error) {
-            console.log(error)
+            } catch (error) {
+                res.status(500).json({
+                    meta: {
+                        status: 500,
+                        message: 'Internal server error'
+                    }
+                })
+            }
         }
     }
 }
-
 module.exports = controller
