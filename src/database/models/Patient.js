@@ -16,9 +16,6 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING(255),
 			allowNull: false
 		},
-        idType:{
-            type: DataTypes.ENUM('DNI', 'LC', 'LE', 'CI', 'PAIS'),
-        },
         id:{
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -54,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: true
 		},
 		idUserFk: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.STRING(255),
 			allowNull: false
 		}
 	}

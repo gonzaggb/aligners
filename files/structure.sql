@@ -24,19 +24,19 @@ CREATE TABLE patients
 id_patient_pk INT PRIMARY KEY AUTO_INCREMENT,
 NAME VARCHAR(255) NOT NULL,
 last_name VARCHAR(255) NOT NULL,
-id_type ENUM('DNI','LC','LE','CI','PAIS'),
-id INT,
-birthday DATE NOT NULL,
-genre ENUM('male','female','otro'),
-email VARCHAR(255) NOT NULL UNIQUE,
+id INT UNIQUE,
+birthday VARCHAR(50) NOT NULL,
+genre ENUM('male','female','other'),
+email VARCHAR(255) NOT NULL,
 mobilephone VARCHAR(10),
 province VARCHAR(50) NOT NULL,
 city VARCHAR(50) NOT NULL,
-occupation VARCHAR(50) NOT NULL
+occupation VARCHAR(50) NOT NULL,
+id_user_fk VARCHAR(255) NOT NULL
 );
 
 ##CREATE TABLE USERS_PACIENTS
-CREATE TABLE users_pacients
+CREATE TABLE users_patients
 (
 id_user_pacient_pk INT PRIMARY KEY AUTO_INCREMENT,
 id_user_fk INT,
