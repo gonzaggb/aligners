@@ -1,6 +1,8 @@
-const { Detail, Treatment, TreatmentDetail } = require('../database/models');
+const { Detail, Treatment, Image } = require('../database/models');
 const { validationResult } = require('express-validator');
 const { addDetails } = require('../utils/utils.js');
+const path = require('path');
+const  fs  = require('fs');
 const controller = {
 
     // api to get details available for a treatment
@@ -28,8 +30,6 @@ const controller = {
 
     },
     createTreatment: async (req, res) => {
-        console.log('accede al create treatment')
-
         const errors = validationResult(req);
         if (errors.array().length > 0) {
             res.status(422).json({
@@ -74,13 +74,11 @@ const controller = {
                 await addDetails(treatment.idTreatmentPk, miinfOptionDDP)
                 await addDetails(treatment.idTreatmentPk, miinfOptionDIP)
                 await addDetails(treatment.idTreatmentPk, atOption, atValue)
-
-
-
                 res.status(200).json({
                     meta: {
                         status: 200,
-                        message: 'Treatment created successfully'
+                        message: 'Treatment created successfully',
+                        id: treatment.idTreatmentPk
                     },
                     data: treatment
                 })
@@ -98,6 +96,40 @@ const controller = {
 
         }
 
+    },
+    uploadImage: async (req, res) => {
+        const errors = validationResult(req);
+        if(errors.array().length > 0){
+            const images = req.files
+            images.forEach(image => {
+                 fs.unlinkSync(image.path)
+             })
+            res.json({ 
+                meta: {
+                    status: 422,
+                    message: 'Validation error'
+                },
+                data: errors.array()
+            })
+        }else{
+            const images = req.files;
+            images.forEach(async (element) => {
+                const image = await Image.create(
+                    {
+                        idTreatmentFk: 1,
+                        name: element.filename,
+                        idTypeOfImageFk: 1
+                    })
+            })
+            res.status(200).json({
+                meta: {
+                    status: 200,
+                    message: 'Images uploaded successfully',
+                }
+            })
+
+        }
     }
 }
+
 module.exports = controller

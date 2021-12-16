@@ -3,10 +3,9 @@ const path = require('path');
 const { Patient } = require('../database/models');
 const { isImage } = require('../utils/isImage');
 
-console.log('ENTRO AL MULTER')
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../../public/images/treatments'))
+        cb(null, path.join(__dirname, `../../public/images/treatments/`))
     },
     //TODO validar si el id viaja en el body
     filename: async (req, file, cb) => {
@@ -16,18 +15,18 @@ const storage = multer.diskStorage({
             }
         })
         const extensionFile = path.extname(file.originalname)
-        cb(null, `${file.fieldname}-${patient.name}-${patient.lasName} +${Date.now()} ${extensionFile}`)
+        cb(null, `${patient.name}-${patient.lastName}-${file.fieldname}-${Date.now()}${extensionFile}`)
 
     }
 })
 
-const fileFilter = (req, file, cb) => {
+/* const fileFilter = (req, file, cb) => {
     if (isImage(path.extname(file.originalname))) {
         cb(null, true)
     } else {
         cb(null, false)
     }
-}
+} */
 
-const upload = multer({ storage, fileFilter })
+const upload = multer({ storage, /* fileFilter */ })
 module.exports = upload;
