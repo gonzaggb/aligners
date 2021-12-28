@@ -25,7 +25,6 @@ const controller = {
         }
     },
     getAllPatients: async (req, res) => {
-        console.log(req.params)
         try {
             const patient = await Patient.findAll({
 

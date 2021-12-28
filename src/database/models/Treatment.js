@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }
     const config = {
-        tablename: 'treatments',
+        tableName: 'treatments',
         timestamps: false,
         underscored: true
     }
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
         })
         Treatment.belongsToMany(models.Detail, {
             as: 'details',
-            through: 'treatments_details',
+            through: 'xxx',
             foreignKey: 'idTreatmentFk',
             otherKey: 'idDetailFk',
             timestamps: false
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
             timestamps: false
         })
         Treatment.hasMany(models.TreatmentDetail, {
-            as: 'treatmentDetails',
+            as: 'xxx',
             foreignKey: 'idTreatmentFk',
             timestamps: false
         })

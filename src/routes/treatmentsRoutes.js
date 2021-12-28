@@ -9,7 +9,7 @@ const { validateImageApi } = require('../middleware/imageValidator')
 //get all treatments details
 router.get('/treatmentDetail', treatmentController.getTreatmentDetails)
 //create treatment
-router.post('/createTreatment', upload.any(), validateApi, treatmentController.createTreatment)
+router.post('/createTreatment',/*  upload.any(), validateApi, */ treatmentController.createTreatment)
 router.post('/uploadImage', upload.any(), validateImageApi, treatmentController.uploadImage)
 
 module.exports = router;

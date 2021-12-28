@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     Detail.associate = function (models) {
         Detail.belongsToMany(models.Treatment, {
             as: 'treatments',
-            through: 'treatments_details',
+            through: 'xxx',
             foreignKey: 'idDetailFk',
             otherKey: 'idTreatmentFk',
             timestamps: false

@@ -7,8 +7,6 @@ const validateApi = [
     body('idPatient').notEmpty().withMessage('Debes elegir el paciente al cual cargar el tratamiento'),
     body('atccOption').notEmpty().withMessage('Debes elegir cual es la arcada a tratar'),
     body('ccValue').notEmpty().withMessage('Debes elegir cual es la condición clinica'),
-    body('raMRECOption').notEmpty().withMessage('Debes elegir cual es la condición clinica'),
-    body('raMRECMOption').notEmpty().withMessage('Debes elegir cual es la condición clinica'),
     body('rmOption').notEmpty().withMessage('Debes elegir una opcion').bail()
         .custom((value, { req }) => {
             if (req.body.rmOption == 16 && req.body.rmValue === '') {
@@ -50,25 +48,6 @@ const validateApi = [
                 throw new Error('Debes seleccionar seleccionar una opcion para 101')
             }
             return true
-        }),
-    body('extFrente')
-        .custom((value, { req }) => {
-            const { files } = req
-            console.log("#######VALIDATOR#######")
-            console.log(files)
-            files.forEach(file => {
-                if (file.fieldname === 'extFrente') {
-                    console.log(isImage(path.extname(file.originalname)))
-                    if (!isImage(path.extname(file.originalname))) {
-                        throw new Error('El archivo debe ser una imagen')
-                    }
-                    console.log('es una imagen')
-                    return true
-                }
-
-            })
-            console.log("#######VALIDATOR#######")
-
         })
 ]
 

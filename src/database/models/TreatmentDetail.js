@@ -22,9 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     const config = {
-        tablename: 'treatment_details',
+        tableName: 'treatments_details',
         timestamps: false,
-        underscored: true
+        underscored: true,
+        
     }
     const TreatmentDetail = sequelize.define(alias, columns, config);
     TreatmentDetail.associate = function (models) {

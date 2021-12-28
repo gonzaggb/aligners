@@ -42,10 +42,12 @@ const controller = {
         } else {
             //idPatient // debe salir de la sesion
             const { idPatient, atccOption, ccValue, rmOption, rmValue, raMValue,
-                raMRECOption, raMRECMOption, rsrOption, rssOption, rssValue, lmOption, lmValue,
+                raMRECValue, raMRECMValue, rsrOption, rssOption, rssValue, lmOption, lmValue,
                 lmMCPOption, lmASAOption, misupOptionE, misupOptionP, misupOptionDA,
                 misupOptionDDP, misupOptionDIP, miinfOptionE, miinfOptionP, miinfOptionDA,
                 miinfOptionDDP, miinfOptionDIP, atOption, atValue } = req.body
+                console.log(req.body)
+
 
             try {
                 const treatment = await Treatment.create({
@@ -56,8 +58,8 @@ const controller = {
                 await addDetails(treatment.idTreatmentPk, ccValue)
                 await addDetails(treatment.idTreatmentPk, rmOption, rmValue)
                 await addDetails(treatment.idTreatmentPk, raMValue)
-                await addDetails(treatment.idTreatmentPk, raMRECOption)
-                await addDetails(treatment.idTreatmentPk, raMRECMOption)
+                await addDetails(treatment.idTreatmentPk, raMRECValue)
+                await addDetails(treatment.idTreatmentPk, raMRECMValue)
                 await addDetails(treatment.idTreatmentPk, rsrOption)
                 await addDetails(treatment.idTreatmentPk, rssOption, rssValue)
                 await addDetails(treatment.idTreatmentPk, lmOption, lmValue)
