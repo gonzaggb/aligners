@@ -4,7 +4,7 @@ const { checkFields } = require('../utils/checkFields')
 
 
 const validateImageApi = [
-    body('extFrente').custom((value, { req }) => {
+/*     body('extFrente').custom((value, { req }) => {
         const images = req.files
         checkFields(images, 'extFrente')
         return true
@@ -13,8 +13,8 @@ const validateImageApi = [
         const images = req.files
         checkFields(images, 'extSonrisa')
         return true
-    }),
-    body('extPerfil').custom((value, { req }) => {
+    }), */
+   /*  body('extPerfil').custom((value, { req }) => {
         const images = req.files
         checkFields(images, 'extPerfil')
         return true
@@ -38,7 +38,7 @@ const validateImageApi = [
         const images = req.files
         checkFields(images, 'intOverjet')
         return true
-    })
+    }) */
 ]
 
 module.exports = { validateImageApi }

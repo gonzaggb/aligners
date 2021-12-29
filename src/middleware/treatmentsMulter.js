@@ -3,12 +3,14 @@ const path = require('path');
 const { Patient } = require('../database/models');
 const { isImage } = require('../utils/isImage');
 
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, `../../public/images/treatments/`))
     },
     //TODO validar si el id viaja en el body
     filename: async (req, file, cb) => {
+        
         const patient = await Patient.findOne({
             where: {
                 idPatientPk: req.body.id || 1

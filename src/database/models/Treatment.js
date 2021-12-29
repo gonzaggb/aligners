@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
             timestamps: false
         })
         Treatment.hasMany(models.TreatmentDetail, {
-            as: 'xxx',
+            as: 'treatmentsDetails',
             foreignKey: 'idTreatmentFk',
             timestamps: false
         })

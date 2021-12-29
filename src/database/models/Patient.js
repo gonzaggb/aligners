@@ -69,6 +69,11 @@ module.exports = (sequelize, DataTypes) => {
             otherKey: 'idUserFk',
             timestamps: false
         })
+		Patient.hasMany(models.Treatment, {
+			as: 'treatments',
+			foreignKey: 'idPatientFk',
+			timestamps: false
+		})
     }
 	return Patient;
 }

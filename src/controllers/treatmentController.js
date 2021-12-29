@@ -2,7 +2,7 @@ const { Detail, Treatment, Image } = require('../database/models');
 const { validationResult } = require('express-validator');
 const { addDetails } = require('../utils/utils.js');
 const path = require('path');
-const  fs  = require('fs');
+const fs = require('fs');
 const controller = {
 
     // api to get details available for a treatment
@@ -46,7 +46,7 @@ const controller = {
                 lmMCPOption, lmASAOption, misupOptionE, misupOptionP, misupOptionDA,
                 misupOptionDDP, misupOptionDIP, miinfOptionE, miinfOptionP, miinfOptionDA,
                 miinfOptionDDP, miinfOptionDIP, atOption, atValue } = req.body
-                console.log(req.body)
+            console.log(req.body)
 
 
             try {
@@ -100,20 +100,22 @@ const controller = {
 
     },
     uploadImage: async (req, res) => {
+        console.log("ENTRE AL UPLOAD IMAGE")
+        console.log(req.body)
         const errors = validationResult(req);
-        if(errors.array().length > 0){
+        if (errors.array().length > 0) {
             const images = req.files
             images.forEach(image => {
-                 fs.unlinkSync(image.path)
-             })
-            res.json({ 
+                fs.unlinkSync(image.path)
+            })
+            res.json({
                 meta: {
                     status: 422,
                     message: 'Validation error'
                 },
                 data: errors.array()
             })
-        }else{
+        } else {
             const images = req.files;
             images.forEach(async (element) => {
                 const image = await Image.create(
@@ -131,7 +133,32 @@ const controller = {
             })
 
         }
+    },
+    getTreatmentList: async (req, res) => {
+        try {
+            const { idUser } = req.params
+            const treatments = await Treatment.findAll(
+                { include: [{ association: 'patient', where: { idUserFk: idUser } }] })
+            res.status(200).json({
+                meta: {
+                    status: 200,
+                    message: 'Treatment list fetched successfully'
+                },
+                data: treatments
+            })
+        } catch (error) {
+            res.status(500).json({
+                meta: {
+                    status: 500,
+                    message: 'Internal server error'
+                },
+                data: {}
+            })
+
+        }
+
     }
+
 }
 
 module.exports = controller

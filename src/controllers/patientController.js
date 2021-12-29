@@ -26,19 +26,16 @@ const controller = {
     },
     getAllPatients: async (req, res) => {
         try {
-            const patient = await Patient.findAll({
-
-                where: {
-                    idUserFk: req.params.idUser
-                }
+            const patients = await Patient.findAll({
+                include: [{ association: 'treatments' }]
             })
             return res.status(200).json({
                 meta: {
                     status: 200,
                     message: 'Success',
-                    patients: patient.length
+                    patients: patients.length
                 },
-                data: patient
+                data: patients
             })
         } catch (error) {
             return res.status(500).json({
