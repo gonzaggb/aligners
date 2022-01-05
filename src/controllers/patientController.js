@@ -5,7 +5,14 @@ const controller = {
     getPatientById: async (req, res) => {
         const { idPatient } = req.params;
         try {
-            const patient = await Patient.findByPk(idPatient);
+            const patient = await Patient.findByPk(
+                idPatient,
+                {
+                    include: [
+                        { association: 'treatments' },
+                    ]
+                }
+            );
             if (!patient) {
                 return res.status(404).json({
                     message: 'Patient not found'
@@ -19,8 +26,10 @@ const controller = {
 
             })
         } catch (error) {
+            console.log(error)
             return res.status(500).json({
-                message: 'Internal server error'
+                message: 'Internal server error',
+                data: error
             });
         }
     },
@@ -47,6 +56,8 @@ const controller = {
             })
         }
     },
+
+    
 
     // api to get details available for a treatment
     createPatient: async (req, res) => {

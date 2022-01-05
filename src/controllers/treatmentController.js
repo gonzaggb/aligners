@@ -1,4 +1,4 @@
-const { Detail, Treatment, Image } = require('../database/models');
+const { Detail, Treatment, Image, Aligner } = require('../database/models');
 const { validationResult } = require('express-validator');
 const { addDetails } = require('../utils/utils.js');
 const path = require('path');
@@ -29,6 +29,7 @@ const controller = {
         }
 
     },
+
     createTreatment: async (req, res) => {
         const errors = validationResult(req);
         if (errors.array().length > 0) {
@@ -147,18 +148,61 @@ const controller = {
                 data: treatments
             })
         } catch (error) {
+            console.log(error)
             res.status(500).json({
                 meta: {
                     status: 500,
                     message: 'Internal server error'
                 },
-                data: {}
+                data: error
             })
 
         }
 
-    }
+    },
+    getAlignersbyTreatmentId: async (req, res) => {
+        try {
+            const { idTreatment } = req.params
+            const aligners = await Aligner.findAll(
+                {
+                    include: [{ association: 'treatment', where: { idTreatmentPk: idTreatment } }]
+                })
+            
+            if (aligners.length > 0){
+                res.status(200).json({
+                    meta: {
+                        status: 200,
+                        message: 'Aligners fetched successfully',
+                        up: aligners.filter(aligner => aligner.type == 'superior').length,
+                        down: aligners.filter(aligner => aligner.type == 'inferior').length
+                    },
+                    data: aligners
+                })
+            }
+            else{
+                res.status(404).json({
+                    meta: {
+                        status: 404,
+                        message: 'Aligners not found'
+                    },
+                    data: {}
+                })
+            }
+        }catch(error){
+            console.log(error)
+            res.status(500).json({
+                meta: {
+                    status: 500,
+                    message: 'Internal server error'
+                },
+                data: error
+            })
+        }
 
+    }
 }
+
+
+
 
 module.exports = controller

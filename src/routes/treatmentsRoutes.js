@@ -14,4 +14,6 @@ router.post('/createTreatment',  upload.any(),validateApi, treatmentController.c
 router.post('/uploadImage/', upload.any(), validateImageApi, treatmentController.uploadImage)
 //get treatment list
 router.get('/treatmentList/:idUser', treatmentController.getTreatmentList)
+router.get('/getAlignersByTreatmentId/:idTreatment', treatmentController.getAlignersbyTreatmentId);
+
 module.exports = router;

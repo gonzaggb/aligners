@@ -120,3 +120,14 @@ id_detail_fk INT,
 FOREIGN KEY (id_treatment_fk) REFERENCES treatments(id_treatment_pk),
 FOREIGN KEY (id_detail_fk) REFERENCES details(id_detail_pk) 
 );
+
+##CREATE TABLE ALIGNERS
+CREATE TABLE aligners
+(
+id_aligner_pk INT PRIMARY KEY AUTO_INCREMENT,
+TYPE ENUM('superior','inferior'),
+date_of_production DATE,
+notes VARCHAR(255),
+id_treatment_fk INT,
+FOREIGN KEY(id_treatment_fk) REFERENCES treatments(id_treatment_pk)
+)

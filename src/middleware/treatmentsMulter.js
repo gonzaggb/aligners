@@ -3,7 +3,6 @@ const path = require('path');
 const { Patient } = require('../database/models');
 const { isImage } = require('../utils/isImage');
 
-console.log("entre al multer")
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, `../../public/images/treatments/`))
